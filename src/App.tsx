@@ -26,6 +26,7 @@ function App() {
   const [challengeStatus, setChallengeStatus] = useState<{
     [key: string]: "pending" | "correct" | "incorrect";
   }>({});
+  const [totalPoints, setTotalPoints] = useState(0);
 
   const chapters: Chapter[] = [
     {
@@ -338,6 +339,8 @@ function App() {
 
       if (!solvedChallenges.includes(challengeId)) {
         setSolvedChallenges((prev) => [...prev, challengeId]);
+
+        setTotalPoints((prev) => prev + challenge.points);
       }
     } else {
       setChallengeStatus((prev) => ({
@@ -366,6 +369,12 @@ function App() {
           Guia Interativo de Java e POO
         </h1>
       </header>
+
+      <div className="fixed top-4 left-4 bg-blue-100 p-2 rounded-lg shadow">
+        <span className="text-blue-800 font-bold">
+          Pontuação Total: {totalPoints}
+        </span>
+      </div>
 
       <div className="grid grid-cols-3 gap-4 mb-8 max-w-screen-xl m-auto">
         <div className="bg-white p-4 rounded shadow flex items-center text-black">
